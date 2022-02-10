@@ -73,7 +73,7 @@ MonoBehaviour:
   xRange: 4
   yRange: 2.5
   yRangeOffset: -0.8
-  positionPitchFactor: -2
+  positionPitchFactor: -12
   positionYawFactor: 12
   controlPitchFactor: -20
   controlRollFactor: -20

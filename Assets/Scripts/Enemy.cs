@@ -9,15 +9,21 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         health = GetComponent<Health>();
+
     }
     private void OnParticleCollision(GameObject other)
+    {
+        if (!health.hasBeenHit)
+        {
+            ProcessHit(other);
+        }
+    }
+
+    private void ProcessHit(GameObject other)
     {
         Color newColor = new Color(Random.value, Random.value, Random.value, 1.0f);
         GetComponent<Renderer>().material.color = newColor;
         Debug.Log($"{name}I'm hit! by {other.gameObject.name}");
-        if (health)
-        {
-            health.TakeDamage();
-        }
+        health.TakeDamage();
     }
 }

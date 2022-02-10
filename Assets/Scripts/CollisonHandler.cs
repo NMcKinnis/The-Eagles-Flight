@@ -13,7 +13,11 @@ public class CollisonHandler : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log(other.gameObject.name);
+        if (!playerHealth.hasBeenHit)
+        {
         playerHealth.TakeDamage();
+        }
     }
-    
 }
+
+    

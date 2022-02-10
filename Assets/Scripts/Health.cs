@@ -4,15 +4,32 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     [SerializeField] int health = 3;
-    [SerializeField] GameObject damagedEffects;
+    [SerializeField] int scoreValue = 10;
+    [SerializeField] float canBeHurtDelay = 1f;
+    [SerializeField] float hitParticleDelay = 3f;
+    [SerializeField] ParticleSystem damagedEffects;
+    [SerializeField] GameObject enemyDeathVFX;
+    [SerializeField] Transform spawnAtRuntimeParent;
     GameSession gameSession;
-    bool hasBeenHit = false;
+    public bool hasBeenHit = false;
+    Scoreboard scoreboard;
+    [SerializeField] HealthBar healthbar;
+    public int currentHealth;
     void Start()
     {
         gameSession = FindObjectOfType<GameSession>();
+        currentHealth = health;
+        if (healthbar)
+        {
+            healthbar.SetMaxHealth(currentHealth);
+        }
+
+        {
+            scoreboard = FindObjectOfType<Scoreboard>();
+        }
     }
 
-    private void Die()
+    void Die()
     {
         if (tag == ("Player"))
         {
@@ -24,8 +41,11 @@ public class Health : MonoBehaviour
         }
     }
 
-    private void ProcessEnemyDeath()
+    void ProcessEnemyDeath()
     {
+        scoreboard.IncreaseScore(scoreValue);
+        GameObject vfx = Instantiate(enemyDeathVFX, transform.position, Quaternion.identity);
+        vfx.transform.parent = spawnAtRuntimeParent;
         Destroy(gameObject);
     }
 
@@ -35,32 +55,35 @@ public class Health : MonoBehaviour
     {
         if (!hasBeenHit)
         {
-            if (tag == "Player")
+            damagedEffects.GetComponent<DamagedEffects>().SetEffectsPosition();
+            damagedEffects.Play();
+            currentHealth--;
+            if (healthbar)
             {
-                damagedEffects.GetComponent<DamagedEffects>().SetEffectsPosition();
-            } 
-            damagedEffects.SetActive(true);
-            health--;
+            healthbar.SetCurrentHealth(currentHealth);
+            }
             hasBeenHit = true;
             StartCoroutine(DelayEmissionDisable());
             StartCoroutine(DelayCanBeHurt());
-            if (health <= 0)
+            if (currentHealth <= 0)
             {
                 Die();
             }
         }
-
     }
+            
+
+
 
     IEnumerator DelayCanBeHurt()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(canBeHurtDelay);
         hasBeenHit = false;
     }
     IEnumerator DelayEmissionDisable()
     {
-        yield return new WaitForSeconds(3f);
-        damagedEffects.SetActive(false);
+        yield return new WaitForSeconds(hitParticleDelay);
+        damagedEffects.Stop();
 
     }
 
