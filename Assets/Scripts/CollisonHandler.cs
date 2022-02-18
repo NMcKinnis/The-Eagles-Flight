@@ -15,6 +15,7 @@ public class CollisonHandler : MonoBehaviour
         Debug.Log(other.gameObject.name);
         if (!playerHealth.hasBeenHit)
         {
+        playerHealth.hasBeenHit = true;
         playerHealth.TakeDamage();
         }
     }

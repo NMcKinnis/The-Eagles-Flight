@@ -9,26 +9,23 @@ public class Health : MonoBehaviour
     [SerializeField] float hitParticleDelay = 3f;
     [SerializeField] ParticleSystem damagedEffects;
     [SerializeField] GameObject enemyDeathVFX;
-    [SerializeField] Transform spawnAtRuntimeParent;
-    GameSession gameSession;
-    public bool hasBeenHit = false;
-    Scoreboard scoreboard;
     [SerializeField] HealthBar healthbar;
+    GameSession gameSession;
+    Scoreboard scoreboard;
+    GameObject spawnAtRuntimeParent;
+    public bool hasBeenHit = false;
     public int currentHealth;
     void Start()
     {
+        spawnAtRuntimeParent = GameObject.FindWithTag("SpawnAtRuntime");
         gameSession = FindObjectOfType<GameSession>();
         currentHealth = health;
         if (healthbar)
         {
             healthbar.SetMaxHealth(currentHealth);
         }
-
-        {
-            scoreboard = FindObjectOfType<Scoreboard>();
-        }
+        scoreboard = FindObjectOfType<Scoreboard>();
     }
-
     void Die()
     {
         if (tag == ("Player"))
@@ -45,7 +42,7 @@ public class Health : MonoBehaviour
     {
         scoreboard.IncreaseScore(scoreValue);
         GameObject vfx = Instantiate(enemyDeathVFX, transform.position, Quaternion.identity);
-        vfx.transform.parent = spawnAtRuntimeParent;
+        vfx.transform.parent = spawnAtRuntimeParent.transform;
         Destroy(gameObject);
     }
 
@@ -53,16 +50,15 @@ public class Health : MonoBehaviour
 
     public void TakeDamage()
     {
-        if (!hasBeenHit)
         {
-            damagedEffects.GetComponent<DamagedEffects>().SetEffectsPosition();
+            if (tag == "Player")
+            { damagedEffects.GetComponent<DamagedEffects>().SetEffectsPosition(); }
             damagedEffects.Play();
             currentHealth--;
             if (healthbar)
             {
-            healthbar.SetCurrentHealth(currentHealth);
+                healthbar.SetCurrentHealth(currentHealth);
             }
-            hasBeenHit = true;
             StartCoroutine(DelayEmissionDisable());
             StartCoroutine(DelayCanBeHurt());
             if (currentHealth <= 0)
@@ -71,7 +67,7 @@ public class Health : MonoBehaviour
             }
         }
     }
-            
+
 
 
 
