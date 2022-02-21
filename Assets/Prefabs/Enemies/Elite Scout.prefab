@@ -46,13 +46,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63b873481a5ce1841a86c0529922ae7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  health: 4
   scoreValue: 20
   canBeHurtDelay: 1
   hitParticleDelay: 3
   damagedEffects: {fileID: 7763645486647220426}
   enemyDeathVFX: {fileID: 5277129706832822651, guid: 8f7a8506d78dd6448a9f201e84507e2e, type: 3}
-  spawnAtRuntimeParent: {fileID: 0}
   healthbar: {fileID: 0}
   hasBeenHit: 0
   currentHealth: 0

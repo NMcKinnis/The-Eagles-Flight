@@ -8,23 +8,28 @@ public class Worker : MonoBehaviour
     [SerializeField] ParticleSystem scanner;
     [SerializeField] float timeBetweenScans = 1f;
     [SerializeField] float timeSpentScanning = 1f;
+    public bool isScanning =  true;
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(!isScanning) { return; }
+        {
+            ScanObject();
+        }
+
     }
 
     void ScanObject()
     {
-        StartCoroutine(StartScanDelay());
         scanner.Play();
         StartCoroutine(ScanTime());
         scanner.Stop();
+        isScanning = false;
     }
 
     IEnumerator ScanTime()
@@ -35,5 +40,6 @@ public class Worker : MonoBehaviour
     IEnumerator StartScanDelay()
     {
         yield return new WaitForSeconds(timeBetweenScans);
+        isScanning = true;
     }
 }

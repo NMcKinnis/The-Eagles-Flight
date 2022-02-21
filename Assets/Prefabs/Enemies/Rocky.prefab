@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2063350923174375386}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3.233}
+  m_LocalPosition: {x: 0, y: 0.00178, z: 3.235461}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5939733996825464921}
@@ -47,7 +47,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 1
-  prewarm: 0
+  prewarm: 1
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
@@ -4816,7 +4816,6 @@ GameObject:
   - component: {fileID: 5939733996825464921}
   - component: {fileID: 3058986507374874003}
   - component: {fileID: 7561186490142527091}
-  - component: {fileID: 3591801826229420329}
   m_Layer: 0
   m_Name: Rocky
   m_TagString: Untagged
@@ -4853,7 +4852,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63b873481a5ce1841a86c0529922ae7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 6
+  health: 2
   scoreValue: 20
   canBeHurtDelay: 1
   hitParticleDelay: 3
@@ -4872,18 +4871,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee92903ae61346f46bb71a5a45035343, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &3591801826229420329
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4355390247087482695}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd96d6b8867996245be644cd9d416478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &371576995088447581
