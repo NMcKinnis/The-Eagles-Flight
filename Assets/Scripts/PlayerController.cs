@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour
     }
     void ProcessFiring()
     {
-        if (fire.ReadValue<float>() > 0.5)
+        if (fire.ReadValue<float>() > 0.5 && isAlive)
         {
             hasFired = false;
             StartCoroutine(DelayEmissionDisable());

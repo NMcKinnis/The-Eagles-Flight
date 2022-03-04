@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -9,14 +10,19 @@ public class Health : MonoBehaviour
     [SerializeField] float hitParticleDelay = 3f;
     [SerializeField] ParticleSystem damagedEffects;
     [SerializeField] GameObject enemyDeathVFX;
+    [SerializeField] AudioClip hitSFX;
+    [SerializeField] AudioClip deathSFX;
     [SerializeField] HealthBar healthbar;
     GameSession gameSession;
     Scoreboard scoreboard;
     GameObject spawnAtRuntimeParent;
+    AudioSource audioSource;
     public bool hasBeenHit = false;
     public int currentHealth;
+    public bool isAlive = true;
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         spawnAtRuntimeParent = GameObject.FindWithTag("SpawnAtRuntime");
         gameSession = FindObjectOfType<GameSession>();
         currentHealth = health;
@@ -28,14 +34,35 @@ public class Health : MonoBehaviour
     }
     void Die()
     {
-        if (tag == ("Player"))
+
+        isAlive = false;
+        PlayDeathAudio();
+        if (tag == "Player")
         {
             ProcessPlayerDeath();
+            return;
+        }
+        if(tag == "Boss")
+        {
+            HandleWin();
+            ProcessEnemyDeath();
+            return;
         }
         else
         {
             ProcessEnemyDeath();
         }
+    }
+
+    private void PlayDeathAudio()
+    {
+        audioSource.Stop();
+        AudioSource.PlayClipAtPoint(deathSFX, Camera.main.transform.position);
+    }
+
+    private void HandleWin()
+    {
+        FindObjectOfType<GameSession>().HandleWin();
     }
 
     void ProcessEnemyDeath()
@@ -51,6 +78,7 @@ public class Health : MonoBehaviour
     public void TakeDamage()
     {
         {
+            audioSource.clip = hitSFX;
             if (tag == "Player")
             { damagedEffects.GetComponent<DamagedEffects>().SetEffectsPosition(); }
             damagedEffects.Play();
@@ -59,6 +87,7 @@ public class Health : MonoBehaviour
             {
                 healthbar.SetCurrentHealth(currentHealth);
             }
+            audioSource.Play();
             StartCoroutine(DelayEmissionDisable());
             StartCoroutine(DelayCanBeHurt());
             if (currentHealth <= 0)

@@ -8,6 +8,9 @@ TagManager:
   - Scoreboard
   - Enemy
   - SpawnAtRuntime
+  - WinCanvas
+  - LoseCanvas
+  - Boss
   layers:
   - Default
   - TransparentFX
@@ -17,7 +20,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Post Processing
   - 
   - 
   - 
