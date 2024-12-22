@@ -9,7 +9,10 @@ public class LevelLoader : MonoBehaviour
 
     private void Awake()
     {
-        gameCanvas = FindObjectOfType<GameCanvas>().gameObject;
+        if (gameCanvas != null)
+        {
+            gameCanvas = FindObjectOfType<GameCanvas>().gameObject;
+        }
     }
     public void LoadMainLevel()
     {
@@ -19,5 +22,9 @@ public class LevelLoader : MonoBehaviour
         }
 
         SceneManager.LoadScene("MainLevel");
+    }
+    public void Quit()
+    {
+        Application.Quit();
     }
 }

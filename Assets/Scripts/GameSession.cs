@@ -60,4 +60,8 @@ public class GameSession : MonoBehaviour
         }
         SceneManager.LoadScene(nextScene);
     }
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }

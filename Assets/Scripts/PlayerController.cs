@@ -48,6 +48,8 @@ public class PlayerController : MonoBehaviour
         ProcessFiring();
     }
 
+   
+
     private void ProcessTranslation()
     {
         xInputMagnitude = movement.ReadValue<Vector2>().x;
